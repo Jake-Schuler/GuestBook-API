@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #555;
+        }
+        .endpoint {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .method {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .url {
+            font-family: monospace;
+            color: #555;
+        }
+        .description {
+            margin: 10px 0;
+        }
+        .response {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .code {
+            color: #28a745;
+        }
+        .error {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Documentation</h1>
+    <h2>Base URL</h2>
+    <p id="base-url"><strong>http://localhost:1323</strong></p>
+
+    <div class="endpoint">
+        <h3 class="method">GET</h3>
+        <div class="url">/messages</div>
+        <div class="description">Retrieves all messages from the database.</div>
+        <h4>Response:</h4>
+        <div class="response">
+            <code class="code">[ { "ID": 1, "Text": "Hello", "Author": "Alice" }, ... ]</code>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <h3 class="method">GET</h3>
+        <div class="url">/totalMessages</div>
+        <div class="description">Returns the total number of messages.</div>
+        <h4>Response:</h4>
+        <div class="response">
+            <code class="code">42</code>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <h3 class="method">POST</h3>
+        <div class="url">/newMessage</div>
+        <div class="description">Creates a new message.</div>
+        <h4>Request Body:</h4>
+        <div class="response">
+            <code class="code">{"Text": "Hello", "Author": "Alice"}</code>
+        </div>
+        <h4>Response:</h4>
+        <div class="response">
+            <code class="code">{"message": { "ID": 1, "Text": "Hello", "Author": "Alice" }}</code>
+        </div>
+        <h4>Error Response:</h4>
+        <div class="response">
+            <code class="error">{"error": "Text and Author are required"}</code>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <h3 class="method">GET</h3>
+        <div class="url">/uptime</div>
+        <div class="description">Returns the uptime of the server since it started.</div>
+        <h4>Response:</h4>
+        <div class="response">
+            <code class="code">{"uptime": "2h45m30s"}</code>
+        </div>
+    </div>
+
+    <h2>Static Assets (like this page)</h2>
+    <p>Static files are served from the <strong>assets</strong> directory.</p>
+</body>
+<script>
+    var baseUrl = document.getElementById("base-url");
+    baseUrl.innerHTML = `<strong>` + window.location.origin + `</strong>`;
+</script>
+</html>
