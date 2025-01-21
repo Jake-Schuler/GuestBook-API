@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages Viewer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        .message {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .author {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .text {
+            margin-top: 5px;
+        }
+        .error {
+            color: #dc3545;
+        }
+        .loading {
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Messages</h1>
+    <div id="messages-container">
+        <p class="loading">Loading messages...</p>
+    </div>
+
+    <script>
+        async function fetchMessages() {
+            try {
+                const response = await fetch('/messages');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const messages = await response.json();
+                displayMessages(messages);
+            } catch (error) {
+                document.getElementById('messages-container').innerHTML = 
+                    `<p class="error">Error fetching messages: ${error.message}</p>`;
+            }
+        }
+
+        function displayMessages(messages) {
+            const container = document.getElementById('messages-container');
+            container.innerHTML = ''; // Clear loading message
+
+            if (messages.length === 0) {
+                container.innerHTML = '<p>No messages found.</p>';
+                return;
+            }
+
+            messages.forEach(message => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                messageDiv.innerHTML = `
+                    <div class="author">${message.Author}</div>
+                    <div class="text">${message.Text}</div>
+                `;
+                container.appendChild(messageDiv);
+            });
+        }
+
+        // Fetch messages when the page loads
+        window.onload = fetchMessages;
+    </script>
+</body>
+</html>
