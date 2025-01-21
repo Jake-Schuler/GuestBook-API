@@ -1,0 +1,10 @@
+services:
+  gb-api:
+    image: ghcr.io/jake-schuler/guestbook-api:latest
+    container_name: gb-api
+    ports:
+      - "1323:1323"
+    volumes:
+      - ./assets:/app/assets
+      - ${PWD}/gb-api.db:/app/gb-api.db
+    restart: always
